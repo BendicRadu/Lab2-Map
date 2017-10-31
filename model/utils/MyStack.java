@@ -39,7 +39,7 @@ public class MyStack<T> implements ImyStack<T>{
 	@Override
 	public String toString(){
 		if(stack.empty()){
-			return "Stack is empty\n";
+			return "Stack is empty\n\n";
 		}		
 		String str = "ExeStack: \n";
 

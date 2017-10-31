@@ -3,9 +3,9 @@ package controller;
 import exceptions.CtrlException;
 import exceptions.RepoException;
 import exceptions.StmtException;
-import model.IStatement;
 import model.IprgState;
 import repository.IRepo;
+import statements.IStatement;
 
 public class Ctrl {
 	
@@ -27,10 +27,10 @@ public class Ctrl {
 			this.logPrgStateExec();
 			
 		} catch (RepoException r) {
-			throw new CtrlException("Cotroller recieved a repo exeption: " + r.getMessage());
+			throw new CtrlException("Cotroller received a repo exeption: " + r.getMessage());
 			
 		}  catch (StmtException e) {
-			throw new CtrlException("Cotroller recieved a statement exeption: " + e.getMessage());
+			throw new CtrlException("Cotroller received a statement exeption: " + e.getMessage());
 		}
 		
 	}
@@ -49,10 +49,10 @@ public class Ctrl {
 				this.logPrgStateExec();
 			
 			} catch (RepoException r) {
-				throw new CtrlException("Cotroller recieved a repo exeption: " + r.getMessage());
+				throw new CtrlException("Cotroller received a repo exeption: " + r.getMessage());
 				
 			}  catch (StmtException e) {
-				throw new CtrlException("Cotroller recieved a statement exeption: " + e.getMessage());
+				throw new CtrlException("Cotroller received a statement exeption: " + e.getMessage());
 			}
 		}
 	}
@@ -61,7 +61,7 @@ public class Ctrl {
 		try {
 			return r.getCurrentProgram();
 		} catch (RepoException r) {
-			throw new CtrlException("Cotroller recieved a repo exeption: " + r.getMessage());
+			throw new CtrlException("Cotroller received a repo exeption: " + r.getMessage());
 		}
 	}
 	
@@ -77,7 +77,7 @@ public class Ctrl {
 		try {
 			this.r.logPrgStateExec();
 		} catch (RepoException r) {
-			throw new CtrlException("Cotroller recieved a repo exeption: " + r.getMessage());
+			throw new CtrlException("Cotroller received a repo exeption: " + r.getMessage());
 		}
 	} 
 	
