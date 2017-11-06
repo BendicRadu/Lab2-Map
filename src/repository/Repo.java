@@ -8,8 +8,8 @@ import java.io.PrintWriter;
 import exceptions.ListException;
 import exceptions.PrgStateException;
 import exceptions.RepoException;
-import model.IStatement;
 import model.IprgState;
+import statements.IStatement;
 import utils.ImyList;
 import utils.MyList;
 
@@ -75,6 +75,11 @@ public class Repo implements IRepo{
 	@Override
 	public void logPrgStateExec() throws RepoException{
 		try {
+			
+			java.io.File f = new java.io.File(this.logPath);
+			if(!f.exists() || f.isDirectory())
+				throw new RepoException("IOException: File does not exist (" + this.logPath + ")");
+				
 			PrintWriter logFile= new PrintWriter(new BufferedWriter(new FileWriter(this.logPath, true)));
 			logFile.print(this.getCurrentProgram().toString());
 			logFile.close();
