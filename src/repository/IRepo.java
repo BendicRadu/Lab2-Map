@@ -1,8 +1,8 @@
 package repository;
 
 import exceptions.RepoException;
-import model.IStatement;
 import model.IprgState;
+import statements.IStatement;
 
 public interface IRepo {
 	
