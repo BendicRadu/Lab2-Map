@@ -45,7 +45,7 @@ public class CloseRFile implements IStatement {
 			throw new StmtException("File does not exist or hasn't been open");
 		}
 		
-		return state;	
+		return null;	
 	}
 	
 	@Override

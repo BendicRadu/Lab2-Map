@@ -13,6 +13,8 @@ public interface ImyDict<TKey, T> {
 	
 	public T get(TKey key) throws DictException;
 	
+	public ImyDict<TKey, T> clone();
+	
 	public void setContent(Map<TKey, T> newMap);
 	public Map<TKey, T> getContent();
 	

@@ -1,10 +1,12 @@
 package view;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 import controller.Ctrl;
 import exceptions.CtrlException;
+import model.IprgState;
 
 public class RunExample extends Command {
 	private Ctrl ctrl;
@@ -26,16 +28,19 @@ public class RunExample extends Command {
 			System.out.println("\nDone: " + e1.getMessage());
 		}finally{
 			try {
-				this.ctrl.getCurrentProgram().getFileTable().entrySet().stream()
+				
+				List<IprgState> tmpList= ctrl.getPrgList();
+				
+				tmpList.stream().
+				forEach(p -> p.getFileTable().entrySet().stream()
 					.forEach(s->{
 						try {
 							s.getValue().getSecond().close();
 						} catch (IOException e) {
 							System.out.println("\nDone: " + e.getMessage());
 						}
-					});
-				
-				System.out.println(this.ctrl.getCurrentProgram().getFileTable().toString());
+					})
+					);
 				
 			} catch (CtrlException e) {
 				System.out.println("\nDone: " + e.getMessage());

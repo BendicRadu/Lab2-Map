@@ -33,7 +33,7 @@ public class PrintStmt implements IStatement{
 			throw new StmtException("Id in \"" + this.toString() + "\" statement has no value asociated with it");
 		}
 	
-		return state;
+		return null;
 	}
 
 }

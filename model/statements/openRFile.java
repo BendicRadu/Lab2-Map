@@ -46,7 +46,7 @@ public class openRFile implements IStatement{
 		fileTable.put(id, entry);
 		symTable.put(var_file_id, id);
 		
-		return state;
+		return null;
 	}
 	
 	@Override
