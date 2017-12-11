@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 
 import exceptions.PrgStateException;
 import exceptions.StackException;
+import exceptions.StmtException;
 import statements.IStatement;
 import utils.ImyDict;
 import utils.ImyList;
@@ -19,13 +20,16 @@ public class PrgState implements IprgState{
 	ImyDict<Integer, ImyTuple<String, BufferedReader>> fileTable;
 	ImyDict<Integer, Integer> heap;
 	IStatement originalProgram;
+	int id;
+	int idBuffer = 0;
 	
-	public PrgState(ImyStack<IStatement> stk, ImyDict<String, Integer> symTable, ImyList<Integer> output, ImyDict<Integer, ImyTuple<String, BufferedReader>> fileTable, ImyDict<Integer, Integer> heap, IStatement o){
+	public PrgState(ImyStack<IStatement> stk, ImyDict<String, Integer> symTable, ImyList<Integer> output, ImyDict<Integer, ImyTuple<String, BufferedReader>> fileTable, ImyDict<Integer, Integer> heap, IStatement o, int id){
 		this.stk = stk;
 		this.symTable = symTable;
 		this.output = output;
 		this.fileTable = fileTable;
 		this.heap = heap;
+		this.id = id;
 		this.originalProgram = o;
 		this.stk.push(originalProgram);
 	}
@@ -51,6 +55,19 @@ public class PrgState implements IprgState{
 		return this.heap;
 	}
 	
+	@Override
+	public int getId(){
+		return this.id;
+	}
+	
+	public int getIdBuffer(){
+		return this.idBuffer;
+	}
+	
+	public void setIdBuffer(int value){
+		this.idBuffer = value;
+	}
+	
 	public IStatement popExeStack() throws PrgStateException{
 		try {
 			return this.stk.pop();
@@ -59,7 +76,7 @@ public class PrgState implements IprgState{
 		}
 	}
 	
-	public Boolean stackIsEmpty(){
+	public Boolean isNotCompleted(){
 		return this.stk.isEmpty();
 	}
 	
@@ -80,6 +97,24 @@ public class PrgState implements IprgState{
 	public void setHeap(ImyDict<Integer, Integer> h){
 		this.heap = h;
 	}
+	
+	
+	public IprgState oneStep() throws PrgStateException{
+		
+		IStatement crtStmt;
+		try {
+			crtStmt = stk.pop();
+		} catch (StackException e) {
+			throw new PrgStateException("Empty stack in program: " + this.toString());
+		}
+		 try {
+			return crtStmt.execute(this);
+		} catch (StmtException e) {
+			throw new PrgStateException("Statement \"" + crtStmt.toString() +  " has encountered an exception: " + e.getMessage());
+			
+		}
+	}
+	
 	
 	public String ExeStackStr(){
 		return stk.toString();
@@ -102,6 +137,7 @@ public class PrgState implements IprgState{
 	@Override
 	public String toString(){
 		String str = "";
+		str += "PID: " + this.id + "\n";
 		str += this.ExeStackStr();
 		str += this.SymTableStr();
 		str += this.OutputStr();

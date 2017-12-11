@@ -17,6 +17,16 @@ public class MyDict<TKey, T> implements ImyDict<TKey, T>{
 		dict = new HashMap<TKey, T>();
 	}
 	
+	@Override
+	public MyDict<TKey, T> clone(){
+		MyDict<TKey, T> clone;
+	
+		clone = new MyDict<TKey, T>();
+		clone.dict = new HashMap<TKey, T>(this.dict);
+		return clone;
+		
+	}
+	
 	public T get(TKey key) throws DictException{
 		T elem = dict.get(key);
 		if(elem == null){

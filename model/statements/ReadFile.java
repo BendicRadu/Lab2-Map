@@ -63,7 +63,7 @@ public class ReadFile implements IStatement{
 			throw new StmtException("Statement \"" + this.toString() + "\" encountered an exception: " + e2.getMessage());
 		}
 		
-		return state;
+		return null;
 	}
 
 	@Override

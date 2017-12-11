@@ -39,7 +39,7 @@ public class IfStmt implements IStatement{
 				stk.push(elseS);
 			}
 			
-			return state;
+			return null;
 			
 		} catch (ExpressionException e) {
 			throw new StmtException("Id in \"" + this.toString() + "\" statement has no value asociated with it");

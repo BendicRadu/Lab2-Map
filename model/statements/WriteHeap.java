@@ -40,7 +40,7 @@ public class WriteHeap implements IStatement{
 		} catch (ExpressionException e) {
 			throw new StmtException("Statement \"" + this.toString() + "\" encountered an error: expression \"" + exp + "\" is invalid: " + e.getMessage());
 		}
-		return state;
+		return null;
 	}
 	
 	@Override

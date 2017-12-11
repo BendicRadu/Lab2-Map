@@ -31,7 +31,7 @@ public class AssignmentStmt implements IStatement{
 		try {
 			val = e.eval(symTable, heap);
 			symTable.put(id, val);
-			return state;
+			return null;
 		} catch (ExpressionException e1) {
 			throw new StmtException("Statement \"" + this.toString() + "\": " + e1.getMessage());
 		}

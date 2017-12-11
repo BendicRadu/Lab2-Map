@@ -35,7 +35,7 @@ public class New implements IStatement{
 			throw new StmtException("Statement \"" + this.toString() + "\" encountered a head error: " + e1.getMessage());
 		}
 		
-		return state;
+		return null;
 	}
 	
 	@Override

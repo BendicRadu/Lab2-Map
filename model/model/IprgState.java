@@ -17,9 +17,14 @@ public interface IprgState {
 	public ImyList<Integer> getOutput();
 	public ImyDict<Integer, ImyTuple<String, BufferedReader>> getFileTable();
 	public ImyDict<Integer, Integer> getHeap();
+	public int getId();
+	public int getIdBuffer();
+	public void setIdBuffer(int value);
 	
 	public IStatement popExeStack() throws PrgStateException;
-	public Boolean stackIsEmpty();
+	public Boolean isNotCompleted();
+	
+	public IprgState oneStep() throws PrgStateException;
 	
 	public void setExeStack(ImyStack<IStatement> e);
 	public void setSynTable(ImyDict<String, Integer> d);

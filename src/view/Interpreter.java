@@ -14,11 +14,13 @@ import repository.Repo;
 import statements.AssignmentStmt;
 import statements.CloseRFile;
 import statements.CompoundStmt;
+import statements.Fork;
 import statements.IStatement;
 import statements.IfStmt;
 import statements.New;
 import statements.PrintStmt;
 import statements.ReadFile;
+import statements.While;
 import statements.WriteHeap;
 import statements.openRFile;
 import utils.ImyDict;
@@ -70,7 +72,7 @@ class Interpreter {
 		ImyDict<Integer, ImyTuple<String, BufferedReader>> file1 = new MyTDict<Integer, ImyTuple<String, BufferedReader>>();
 		ImyDict<Integer, Integer> heap1 = new MyHDict<Integer>();
 		
-		IprgState p1 = new PrgState(stk1, sym1, out1, file1, heap1, ex1);
+		IprgState p1 = new PrgState(stk1, sym1, out1, file1, heap1, ex1, 1);
 		IRepo r1 = new Repo(p1);
 		Ctrl c1 = new Ctrl(r1);
 		
@@ -103,7 +105,7 @@ class Interpreter {
 		ImyDict<Integer, ImyTuple<String, BufferedReader>> file2 = new MyTDict<Integer, ImyTuple<String, BufferedReader>>();
 		ImyDict<Integer, Integer> heap2 = new MyHDict<Integer>();
 		
-		IprgState p2 = new PrgState(stk2, sym2, out2, file2, heap2, ex2);
+		IprgState p2 = new PrgState(stk2, sym2, out2, file2, heap2, ex2, 1);
 		IRepo r2 = new Repo(p2);
 		Ctrl c2 = new Ctrl(r2);
 		
@@ -136,7 +138,7 @@ class Interpreter {
 		ImyDict<Integer, ImyTuple<String, BufferedReader>> file3 = new MyTDict<Integer, ImyTuple<String, BufferedReader>>();
 		ImyDict<Integer, Integer> heap3 = new MyHDict<Integer>();
 		
-		IprgState p3 = new PrgState(stk3, sym3, out3, file3, heap3, ex3);
+		IprgState p3 = new PrgState(stk3, sym3, out3, file3, heap3, ex3, 1);
 		IRepo r3 = new Repo(p3);
 		Ctrl c3 = new Ctrl(r3);
 		
@@ -164,7 +166,7 @@ class Interpreter {
 		ImyDict<Integer, ImyTuple<String, BufferedReader>> file4 = new MyTDict<Integer, ImyTuple<String, BufferedReader>>();
 		ImyDict<Integer, Integer> heap4 = new MyHDict<Integer>();
 		
-		IprgState p4 = new PrgState(stk4, sym4, out4, file4, heap4, ex4);
+		IprgState p4 = new PrgState(stk4, sym4, out4, file4, heap4, ex4, 1);
 		IRepo r4 = new Repo(p4);
 		Ctrl c4 = new Ctrl(r4);
 		
@@ -189,7 +191,7 @@ class Interpreter {
 		ImyDict<Integer, ImyTuple<String, BufferedReader>> file5 = new MyTDict<Integer, ImyTuple<String, BufferedReader>>();
 		ImyDict<Integer, Integer> heap5 = new MyHDict<Integer>();
 		
-		IprgState p5 = new PrgState(stk5, sym5, out5, file5, heap5, ex5);
+		IprgState p5 = new PrgState(stk5, sym5, out5, file5, heap5, ex5, 1);
 		IRepo r5 = new Repo(p5);
 		Ctrl c5 = new Ctrl(r5);
 		
@@ -216,7 +218,7 @@ class Interpreter {
 		ImyDict<Integer, ImyTuple<String, BufferedReader>> file6 = new MyTDict<Integer, ImyTuple<String, BufferedReader>>();
 		ImyDict<Integer, Integer> heap6 = new MyHDict<Integer>();
 		
-		IprgState p6 = new PrgState(stk6, sym6, out6, file6, heap6, ex6);
+		IprgState p6 = new PrgState(stk6, sym6, out6, file6, heap6, ex6, 1);
 		IRepo r6 = new Repo(p6);
 		Ctrl c6 = new Ctrl(r6);
 		
@@ -246,7 +248,7 @@ class Interpreter {
 		ImyDict<Integer, ImyTuple<String, BufferedReader>> file7 = new MyTDict<Integer, ImyTuple<String, BufferedReader>>();
 		ImyDict<Integer, Integer> heap7 = new MyHDict<Integer>();
 		
-		IprgState p7 = new PrgState(stk7, sym7, out7, file7, heap7, ex7);
+		IprgState p7 = new PrgState(stk7, sym7, out7, file7, heap7, ex7, 1);
 		IRepo r7 = new Repo(p7);
 		Ctrl c7 = new Ctrl(r7);
 		
@@ -279,11 +281,139 @@ class Interpreter {
 		ImyDict<Integer, ImyTuple<String, BufferedReader>> file8 = new MyTDict<Integer, ImyTuple<String, BufferedReader>>();
 		ImyDict<Integer, Integer> heap8 = new MyHDict<Integer>();
 		
-		IprgState p8 = new PrgState(stk8, sym8, out8, file8, heap8, ex8);
+		IprgState p8 = new PrgState(stk8, sym8, out8, file8, heap8, ex8, 1);
 		IRepo r8 = new Repo(p8);
 		Ctrl c8 = new Ctrl(r8);
-	
 		
+		//v=6; (while (v-4) print(v);v=v-1);print(v)
+		
+		IStatement ex9 = 
+				new CompoundStmt(
+					new CompoundStmt(
+							new AssignmentStmt("v", new ConstExp(6)),
+							new While( 
+									new ArithExp(new VarExp("v"), new ConstExp(4), 1),
+									new CompoundStmt(
+											new PrintStmt(new VarExp("v")),
+											new AssignmentStmt("v", new ArithExp(new VarExp("v"), new ConstExp(1), 1))
+											)
+									)
+							),
+					new PrintStmt(new VarExp("v"))
+					);
+				
+				
+		ImyStack<IStatement> stk9 = new MyStack<IStatement>();
+		ImyDict<String, Integer> sym9 = new MyDict<String, Integer>();
+		ImyList<Integer> out9 = new MyList<Integer>();
+		ImyDict<Integer, ImyTuple<String, BufferedReader>> file9 = new MyTDict<Integer, ImyTuple<String, BufferedReader>>();
+		ImyDict<Integer, Integer> heap9 = new MyHDict<Integer>();
+		
+		IprgState p9 = new PrgState(stk9, sym9, out9, file9, heap9, ex9, 1);
+		IRepo r9 = new Repo(p9);
+		Ctrl c9 = new Ctrl(r9);
+		
+		
+		/*
+
+		v=10;new(a,22);
+ 		fork(wH(a,30);v=32;print(v);print(rH(a)));
+ 		print(v);print(rH(a)) 
+
+		*/
+		
+		IStatement ex10 = 
+				new CompoundStmt(
+						new AssignmentStmt("v", new ConstExp(10)),
+						new CompoundStmt(
+								new New("a", new ConstExp(22)),
+								new CompoundStmt(
+										new Fork(
+												new CompoundStmt(
+														new WriteHeap("a", new ConstExp(30)),
+														new CompoundStmt(
+																new Fork(
+																	new CompoundStmt(
+																		new AssignmentStmt("v", new ConstExp(32)),
+																		new CompoundStmt(
+																				new PrintStmt(new VarExp("v")),
+																				new PrintStmt(new ReadHeap("a"))
+																				)
+																		)
+																),
+																new CompoundStmt(
+																		new AssignmentStmt("v", new ConstExp(100)),
+																		new PrintStmt(new VarExp("v"))
+																	)
+																)
+														)
+										),
+										new CompoundStmt(
+												new PrintStmt(new VarExp("v")),
+												new PrintStmt(new ReadHeap("a"))
+												)
+										)
+								)
+						);
+		
+
+		ImyStack<IStatement> stk10 = new MyStack<IStatement>();
+		ImyDict<String, Integer> sym10 = new MyDict<String, Integer>();
+		ImyList<Integer> out10 = new MyList<Integer>();
+		ImyDict<Integer, ImyTuple<String, BufferedReader>> file10 = new MyTDict<Integer, ImyTuple<String, BufferedReader>>();
+		ImyDict<Integer, Integer> heap10 = new MyHDict<Integer>();
+		
+		IprgState p10 = new PrgState(stk10, sym10, out10, file10, heap10, ex10, 1);
+		IRepo r10 = new Repo(p10);
+		Ctrl c10 = new Ctrl(r10);
+		
+		
+		/*
+
+		v=10;new(a,22);
+ 		fork(wH(a,30);v=32;print(v);print(rH(a)));
+ 		print(v);print(rH(a)) 
+
+		*/
+		
+		IStatement ex11 = 
+				new CompoundStmt(
+						new AssignmentStmt("v", new ConstExp(10)),
+						new CompoundStmt(
+								new New("a", new ConstExp(22)),
+								new CompoundStmt(
+										new Fork(
+												new CompoundStmt(
+														new WriteHeap("a", new ConstExp(30)),
+														new CompoundStmt(
+																new AssignmentStmt("v", new ConstExp(32)),
+																new CompoundStmt(
+																		new PrintStmt(new VarExp("v")),
+																		new PrintStmt(new ReadHeap("a"))
+																		)
+																)
+														)
+											),
+										new CompoundStmt(
+												new PrintStmt(new VarExp("v")),
+												new PrintStmt(new ReadHeap("a"))
+												)
+										)
+								)
+						);
+				
+				
+		ImyStack<IStatement> stk11 = new MyStack<IStatement>();
+		ImyDict<String, Integer> sym11 = new MyDict<String, Integer>();
+		ImyList<Integer> out11 = new MyList<Integer>();
+		ImyDict<Integer, ImyTuple<String, BufferedReader>> file11 = new MyTDict<Integer, ImyTuple<String, BufferedReader>>();
+		ImyDict<Integer, Integer> heap11 = new MyHDict<Integer>();
+		
+		IprgState p11 = new PrgState(stk11, sym11, out11, file11, heap11, ex11, 1);
+		IRepo r11 = new Repo(p11);
+		Ctrl c11 = new Ctrl(r11);
+		
+	
 		TextMenu menu = new TextMenu();
 		menu.addCommand(new Exit("0", "exit"));
 		menu.addCommand(new RunExample("1", ex1.toString(), c1));
@@ -294,9 +424,11 @@ class Interpreter {
 		menu.addCommand(new RunExample("6", ex6.toString(), c6));
 		menu.addCommand(new RunExample("7", ex7.toString(), c7));
 		menu.addCommand(new RunExample("8", ex8.toString(), c8));
+		menu.addCommand(new RunExample("9", ex9.toString(), c9));
+		menu.addCommand(new RunExample("10", ex10.toString(), c10));
+		menu.addCommand(new RunExample("11", ex11.toString(), c11));
+		
 		menu.show();
-		
-			
-		
+	
 	}
 }
